@@ -13,6 +13,8 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@monaco-editor/react": "^4.6.0",
+    "axios": "^1.7.9",
     "express": "^4.21.2",
     "socket.io": "^4.8.1",
     "socket.io-client": "^4.8.1"
