@@ -80,7 +80,6 @@ To deploy the app, follow the deployment instructions for your chosen platform (
 Ensure the frontend and backend are both deployed, with the frontend making API calls to the backend’s production URL.
 Usage
 Create a Room:
-
 Enter a unique Room ID and your name in the provided form on the homepage.
 Click "Join Room" to enter the code editor.
 Collaborate:
@@ -97,7 +96,7 @@ The output will be displayed in the console below the editor.
 Share Room:
 
 Copy the Room ID to invite others to join the same room.
-Contributing
+Contributing to this project
 Fork the repository.
 Create a new branch (git checkout -b feature-branch).
 Make your changes.
