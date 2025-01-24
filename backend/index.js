@@ -109,7 +109,7 @@ io.on("connection", (socket) => {
       rooms.get(currentRoom).delete(currentUser);
       io.to(currentRoom).emit("userJoined", Array.from(rooms.get(currentRoom)));
     }
-    console.log("user Disconnected");
+    console.log("user Disconnected ");
   });
 });
 
