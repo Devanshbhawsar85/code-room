@@ -67,7 +67,7 @@ Start the React application:
 
 bash
 Copy
-npm run start
+npm run start dev
 The frontend will be accessible at http://localhost:3000.
 
 Access the Application:
