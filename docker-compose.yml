@@ -1,0 +1,29 @@
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    networks:
+      - app-network
+    depends_on:
+      - backend
+    environment:
+      - VITE_BACKEND_URL=http://localhost:5000 # If you're using Vite
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    networks:
+      - app-network
+    environment:
+      - NODE_ENV=production
+      - PORT=5000
+
+networks:
+  app-network:
+    driver: bridge

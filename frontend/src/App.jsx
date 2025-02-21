@@ -4,7 +4,14 @@ import io from "socket.io-client";
 import Editor from "@monaco-editor/react";
 
 const socket = io("http://localhost:5000");
-// front start using run npm dev
+
+const languageVersions = {
+  javascript: "18.15.0",
+  python: "3.10.0",
+  java: "17.0.1",
+  cpp: "10.2.0",
+};
+
 const App = () => {
   const [joined, setJoined] = useState(false);
   const [roomId, setRoomId] = useState("");
@@ -15,28 +22,17 @@ const App = () => {
   const [users, setUsers] = useState([]);
   const [typing, setTyping] = useState("");
   const [outPut, setOutPut] = useState("");
-  const [version, setVersion] = useState("*");
 
   useEffect(() => {
-    socket.on("userJoined", (users) => {
-      setUsers(users);
-    });
-
-    socket.on("codeUpdate", (newCode) => {
-      setCode(newCode);
-    });
-
+    socket.on("userJoined", (users) => setUsers(users));
+    socket.on("codeUpdate", (newCode) => setCode(newCode));
     socket.on("userTyping", (user) => {
       setTyping(`${user.slice(0, 8)}... is Typing`);
       setTimeout(() => setTyping(""), 2000);
     });
-
-    socket.on("languageUpdate", (newLanguage) => {
-      setLanguage(newLanguage);
-    });
-
+    socket.on("languageUpdate", (newLanguage) => setLanguage(newLanguage));
     socket.on("codeResponse", (response) => {
-      setOutPut(response.run.output);
+      setOutPut(response.run?.output || response?.message || "Execution Error");
     });
 
     return () => {
@@ -49,15 +45,9 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    const handleBeforeUnload = () => {
-      socket.emit("leaveRoom");
-    };
-
+    const handleBeforeUnload = () => socket.emit("leaveRoom");
     window.addEventListener("beforeunload", handleBeforeUnload);
-
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
+    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
   }, []);
 
   const joinRoom = () => {
@@ -95,6 +85,7 @@ const App = () => {
   };
 
   const runCode = () => {
+    const version = languageVersions[language] || "latest";
     socket.emit("compileCode", { code, roomId, language, version });
   };
 
@@ -155,16 +146,13 @@ const App = () => {
 
       <div className="editor-wrapper">
         <Editor
-          height={"60%"}
+          height="60%"
           defaultLanguage={language}
           language={language}
           value={code}
           onChange={handleCodeChange}
           theme="vs-dark"
-          options={{
-            minimap: { enabled: false },
-            fontSize: 14,
-          }}
+          options={{ minimap: { enabled: false }, fontSize: 14 }}
         />
         <button className="run-btn" onClick={runCode}>
           Execute
