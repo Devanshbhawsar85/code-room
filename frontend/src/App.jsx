@@ -3,7 +3,11 @@ import "./App.css";
 import io from "socket.io-client";
 import Editor from "@monaco-editor/react";
 
-const socket = io("http://localhost:5000");
+const backendURL =
+  window.location.hostname === "localhost"
+    ? "http://localhost:5000"
+    : "http://3.7.45.252:5000";
+const socket = io(backendURL);
 
 const languageVersions = {
   javascript: "18.15.0",
