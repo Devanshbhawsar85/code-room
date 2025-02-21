@@ -7,7 +7,7 @@ const backendURL =
   window.location.hostname === "localhost"
     ? "http://localhost:5000"
     : "http://3.7.45.252:5000";
-const socket = io(backendURL);
+const socket = io(backendURL, { withCredentials: true });
 
 const languageVersions = {
   javascript: "18.15.0",

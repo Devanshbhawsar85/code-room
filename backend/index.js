@@ -13,11 +13,26 @@ const FRONTEND_URLS = [
   process.env.FRONTEND_URL || "http://localhost:5173",
   "http://localhost",
   "http://localhost:80",
+  "http://3.7.45.252",
   "http://3.7.45.252:5000",
   "http://3.7.45.252:5173",
 ];
 
-app.use(cors({ origin: FRONTEND_URLS, methods: ["GET", "POST"] }));
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like mobile apps, curl, postman)
+      if (!origin) return callback(null, true);
+      if (FRONTEND_URLS.includes(origin)) {
+        return callback(null, true);
+      } else {
+        return callback(new Error("Not allowed by CORS"));
+      }
+    },
+    methods: ["GET", "POST"],
+    credentials: true,
+  })
+);
 
 const server = http.createServer(app);
 
@@ -25,6 +40,7 @@ const io = new Server(server, {
   cors: {
     origin: FRONTEND_URLS, //  Corrected
     methods: ["GET", "POST"],
+    credentials: true,
   },
 });
 
