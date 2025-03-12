@@ -13,9 +13,10 @@ const FRONTEND_URLS = [
   process.env.FRONTEND_URL || "http://localhost:5173",
   "http://localhost",
   "http://localhost:80",
-  "http://3.7.45.252",
-  "http://3.7.45.252:5000",
-  "http://3.7.45.252:5173",
+  "http://35.174.136.48",
+  "http://35.174.136.48:5000",
+  "http://35.174.136.48:5173",
+  "http://35.174.136.48:80",
 ];
 
 app.use(

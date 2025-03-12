@@ -6,7 +6,7 @@ import Editor from "@monaco-editor/react";
 const backendURL =
   window.location.hostname === "localhost"
     ? "http://localhost:5000"
-    : "http://3.7.45.252:5000";
+    : "http://35.174.136.48:5000";
 const socket = io(backendURL, { withCredentials: true });
 
 const languageVersions = {
