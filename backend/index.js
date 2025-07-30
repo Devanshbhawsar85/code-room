@@ -10,8 +10,8 @@ dotenv.config(); //  Load environment variables
 const app = express();
 
 const FRONTEND_URLS = [
-  "http://13.232.127.16",
-  "http://13.232.127.16:80",
+  "http://3.110.42.161",
+  "http://3.110.42.161:80",
   "http://localhost",
   "http://localhost:5173",
 ];
