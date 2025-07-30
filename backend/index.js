@@ -45,7 +45,7 @@ const io = new Server(server, {
 const rooms = new Map();
 
 io.on("connection", (socket) => {
-  console.log(` User Connected: ${socket.id}`);
+  console.log(`User Connected: ${socket.id}`);
 
   let currentRoom = null;
   let currentUser = null;
@@ -148,17 +148,17 @@ io.on("connection", (socket) => {
 
 const PORT = process.env.PORT || 5000;
 
-// ✅ Default Route
+// Default Route
 app.get("/", (req, res) => {
   res.send("Welcome to the Code Collaboration Server!");
 });
 
-// ✅ API Health Check
+//API Health Check
 app.get("/api/health", (req, res) => {
   res.json({ status: "ok" });
 });
 
-// ✅ Ensure server works inside Docker
+// Ensure server works inside Docker
 server.listen(PORT, "0.0.0.0", () => {
   console.log(` Backend server is running on port ${PORT}`);
 });
